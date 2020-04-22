@@ -2,32 +2,52 @@
 
 import unittest
 
-def debug(str):
-    print("Debug: {}".format(str))
+def debug(s):
+    print("Debug: {}".format(s))
+    pass
 
 class TestReversalInPlace(unittest.TestCase):
     def test_emptyString(self):
-        str = ""
-        res = ReversalInPlace(str).reverse()
+        s = ""
+        res = ReversalInPlace(s).reverse()
 
         self.assertEqual(res, "")
     
     def test_nonemptyStringOdd(self):
-        str = "cat"
-        res = ReversalInPlace(str).reverse()
+        s = "cat"
+        res = ReversalInPlace(s).reverse()
 
         self.assertEqual(res, "tac")
     
     def test_nonemptyStringEven(self):
-        str = "cats"
-        res = ReversalInPlace(str).reverse()
+        s = "cats"
+        res = ReversalInPlace(s).reverse()
 
         self.assertEqual(res, "stac")
 
+class TestReversalPerWord(unittest.TestCase):
+    def test_emptyString(self):
+        s = ""
+        res = ReversalPerWord(s).reverse()
+
+        self.assertEqual(res, "")
+
+    def test_nonemptyString(self):
+        s = "cats are pretty cool"
+        res = ReversalPerWord(s).reverse()
+
+        self.assertEqual(res, "stac era ytterp looc")
+
+    def test_multispacedWords(self):
+        s = "cats   are pretty     cool"
+        res = ReversalPerWord(s).reverse()
+
+        self.assertEqual(res, "stac   era ytterp     looc")
+
 class ReversalInPlace:
-    def __init__(self, str):
-        self.str = str
-        self.lst = list(str)
+    def __init__(self, s):
+        self.str = s
+        self.lst = list(s)
     
     def reverse(self):
         ret = self.lst
@@ -43,9 +63,20 @@ class ReversalInPlace:
         
         return ''.join(ret)
 
+class ReversalPerWord:
+    def __init__(self, s):
+        self.str = s
+
+    def reverse(self):
+        words = self.str.split(" ")
+
+        return " ".join([ReversalInPlace(w).reverse() for w in words])
+
+
 def main():
-    str = "cat"
-    print(ReversalInPlace(str).reverse())
+    s = "cats   are pretty     cool"
+    print(ReversalInPlace(s).reverse())
+    print(ReversalPerWord(s).reverse())
 
 if __name__ == "__main__":
     unittest.main(exit=False)

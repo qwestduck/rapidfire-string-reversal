@@ -4,7 +4,7 @@
 
 In language of choice:
 - Write a routine that reverses a string in place.
-- Write a routine that reverses each word in a string (words are characters separated by spaces) .
+- Write a routine that reverses each word in a string (words are characters separated by spaces).
 - Write a routine that reverses the order of words in a string.
 
 ## Concessions
